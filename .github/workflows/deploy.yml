@@ -30,6 +30,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.Earth_Token }}
-          publish_dir: /dist # 指定该文件夹中的 dist 
+          publish_dir: dist # 指定该文件夹中的 dist 
           publish_branch: gh-pages # 推送到关联仓库的 gh-pages 分支
           dotfiles: true  # 包括在提交中，即使被 .gitignore 文件忽略
