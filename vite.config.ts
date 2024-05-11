@@ -4,7 +4,7 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/',
+  base: '/3d-earth',
   plugins: [vue()],
   resolve: {
     alias: {
