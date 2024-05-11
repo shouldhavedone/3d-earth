@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/3d-earth/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D地球</title>
+  <script type="module" crossorigin src="/3d-earth/assets/index-rkIxti0e.js"></script>
+  <link rel="stylesheet" crossorigin href="/3d-earth/assets/index-GvtnFhaB.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="./public/d3.v5.min.js"></script>
+
+  <script id="vertexShader2" type="x-shader/x-vertex">
+    varying vec2 vUv;
+    attribute float percent;
+    uniform float u_time;
+    uniform float number;
+    uniform float speed;
+    uniform float length;
+    varying float opacity;
+    uniform float size;
+    void main()
+    {
+        vUv = uv;
+        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+        float l = clamp(1.0-length,0.0,1.0);
+        gl_PointSize = clamp(fract(percent*number + l - u_time*number*speed)-l ,0.0,1.) * size * (1./length);
+        opacity = gl_PointSize/size;
+        gl_Position = projectionMatrix * mvPosition;
+    }
+  </script>
+
+  <script id="fragmentShader2" type="x-shader/x-vertex">
+    #ifdef GL_ES
+    precision mediump float;
+    #endif
+    varying float opacity;
+    uniform vec3 color;
+    void main(){
+        if(opacity <=0.2){
+            discard;
+        }
+        gl_FragColor = vec4(color,1.0);
+    }
+  </script>
+</body>
+
+</html>
